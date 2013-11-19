@@ -9,8 +9,8 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 alias refresh="source ~/.bash_profile"
 alias rubes="cd ~/git/ruby_tests/"
 alias ls="ls -G -p"
-
 alias mount='mount |column -t'
+
 # handy short cuts #
 alias h='history'
 alias j='jobs -l'
@@ -26,9 +26,10 @@ alias nowdate='date +"%d-%m-%Y"'
 alias vi=vim
 
 alias bi='bundle install'
+
 alias bu='bundle update'
+
 alias be="bundle exec"
-alias bx="bundle exec"
 alias bo="bundle open"
 alias gib="gem install bundler --no-ri --no-rdoc"
 
