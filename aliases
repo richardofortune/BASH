@@ -1,13 +1,26 @@
 
 # MacPorts Installer addition on 2012-09-03_at_14:28:14: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/sbin:/usr/sbin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
-
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 
- if test -f ~/.rvm/scripts/rvm; then
-        [ "$(type -t rvm)" = "function" ] || source ~/.rvm/scripts/rvm
-    fi
+  # Load RVM into a shell session *as a function*
+if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+
+  # First try to load from a user install
+  source "$HOME/.rvm/scripts/rvm"
+
+elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+
+  # Then try to load from a root install
+  source "/usr/local/rvm/scripts/rvm"
+
+else
+
+  printf "ERROR: An RVM installation was not found.\n"
+
+fi
 
 export PS1="________________________________________________________________________________\n| \w @ \h (\u) \n| => "
 export PS2="| => "
@@ -21,6 +34,7 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 alias refresh="source ~/.bash_profile"
 alias rubes="cd ~/git/ruby_tests/"
 alias ls="ls -G -p"
+alias st="git status"
 
 #GIT
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -76,5 +90,15 @@ function mcd() {
 function servedir(){
     sudo python -m SimpleHTTPServer 80
 }
-function cd() { builtin cd "$@"; ls; }     
+function cd() { builtin cd "$@"; ls; }    
 
+#Use Gemdir to set the RVM Gemdir to match the selected Ruby version.
+function gemdir {
+  if [[ -z "$1" ]] ; then
+    echo "gemdir expects a parameter, which should be a valid RVM Ruby selector"
+  else
+    rvm "$1"
+    cd $(rvm gemdir)
+    pwd
+  fi
+} 
