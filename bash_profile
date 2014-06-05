@@ -32,14 +32,13 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 alias refresh="source ~/.bash_profile"
-alias rubes="cd ~/git/ruby_tests/"
-alias ls="ls -G -p"
-alias st="git status"
+
+alias mount='mount |column -t'
 
 #GIT
 alias gl="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias st="git status"
 
-alias mount='mount |column -t'
 # handy short cuts #
 alias h='history'
 alias j='jobs -l'
@@ -49,21 +48,22 @@ alias ..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../../../'
 alias path='echo -e ${PATH//:/\\n}'
-alias now='date +"%T'
+alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 alias vi=vim
 alias sweep='find ~ -type f \( -name '*.swp' -o -name 'wget.log' -o -name 'foobar*' -o -name '*~' -o -name '.netrwhist'  \) -delete'
+alias rubes="cd ~/git/ruby_tests/"
+alias ls="ls -G -p"
 
 alias bi='bundle install'
 alias bu='bundle update'
-alias be="bundle exec"
-alias bx="bundle exec"
-alias bo="bundle open"
-alias gib="gem install bundler --no-ri --no-rdoc"
+alias be='bundle exec'
+
 alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
 alias f='open -a Finder ./'                 
 alias ~="cd ~" 
+
 #networking
 alias header='curl -I'
 alias wget='wget -c'
@@ -90,15 +90,7 @@ function mcd() {
 function servedir(){
     sudo python -m SimpleHTTPServer 80
 }
+
 function cd() { builtin cd "$@"; ls; }    
 
-#Use Gemdir to set the RVM Gemdir to match the selected Ruby version.
-function gemdir {
-  if [[ -z "$1" ]] ; then
-    echo "gemdir expects a parameter, which should be a valid RVM Ruby selector"
-  else
-    rvm "$1"
-    cd $(rvm gemdir)
-    pwd
-  fi
-} 
+
