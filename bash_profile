@@ -1,26 +1,46 @@
+#!/usr/bin/env bash
 
-# MacPorts Installer addition on 2012-09-03_at_14:28:14: adding an appropriate PATH variable for use with MacPorts.
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/sbin:/usr/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
+# Load RVM, if you are using it
 
-  # Load RVM into a shell session *as a function*
-if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+# Add rvm gems and nginx to the path
+export PATH=$PATH:~/.gem/ruby/1.8/bin:/opt/nginx/sbin
 
-  # First try to load from a user install
-  source "$HOME/.rvm/scripts/rvm"
+# Path to the bash it configuration
+export BASH_IT=$HOME/.bash_it
 
-elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+# Lock and Load a custom theme file
+# location /.bash_it/themes/
+export BASH_IT_THEME='bobby'
 
-  # Then try to load from a root install
-  source "/usr/local/rvm/scripts/rvm"
+# Your place for hosting Git repos. I use this for private repos.
+# export GIT_HOSTING='git@git.domain.com'
 
-else
+# Set my editor and git editor
+export EDITOR="/usr/bin/mate -w"
+export GIT_EDITOR='subl'
 
-  printf "ERROR: An RVM installation was not found.\n"
+# Set the path nginx
+export NGINX_PATH='/opt/nginx'
 
-fi
+# Don't check mail when opening terminal.
+unset MAILCHECK
+
+# Change this to your console based IRC client of choice.
+
+export IRC_CLIENT='irssi'
+
+# Set this to the command you use for todo.txt-cli
+export TODO="t"
+
+# Set this to false to turn off version control status checking within the prompt for all themes
+export SCM_CHECK=true
+
+# Set vcprompt executable path for scm advance info in prompt (demula theme)
+# https://github.com/xvzf/vcprompt
+#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
+
+# Load Bash It
+source $BASH_IT/bash_it.sh
 
 export PS1="________________________________________________________________________________\n| \w @ \h (\u) \n| => "
 export PS2="| => "
@@ -49,11 +69,11 @@ alias ..='cd ..'
 alias ...='cd ../../../'
 alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
-alias nowtime=now
+# alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 alias vi=vim
 alias sweep='find ~ -type f \( -name '*.swp' -o -name 'wget.log' -o -name 'foobar*' -o -name '*~' -o -name '.netrwhist'  \) -delete'
-alias rubes="cd ~/git/ruby_tests/"
+alias qr="cd ~/git/qe_ruby_tests/"
 alias ls="ls -G -p"
 
 alias bi='bundle install'
@@ -64,12 +84,19 @@ alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 
 alias f='open -a Finder ./'                 
 alias ~="cd ~" 
 
+# GIT Sugar
+alias gfo='git fetch origin'
+alias gd='git diff master origin/master'
+alias gm='git merge'   
+
 #networking
 alias header='curl -I'
 alias wget='wget -c'
 
-#monitoring
-#alias top='atop'
+#Sugar
+alias music="mpsyt"
+
+
 #   -----------------------------------------------------------------------------------
 #   cleanupDS:  Recursively delete .DS_Store files
 #   -------------------------------------------------------------------
@@ -91,6 +118,6 @@ function servedir(){
     sudo python -m SimpleHTTPServer 80
 }
 
-function cd() { builtin cd "$@"; ls; }    
+function cd() { builtin cd "$@"; ls; }   
 
-
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
